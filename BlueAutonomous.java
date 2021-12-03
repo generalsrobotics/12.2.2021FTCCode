@@ -41,7 +41,7 @@ public class BlueAutonomous extends LinearOpMode {
         frontright.setDirection(DcMotor.Direction.REVERSE);
         backright.setDirection(DcMotor.Direction.REVERSE);
         duckMotor.setDirection(DcMotor.Direction.REVERSE);   
-        
+        int d = (int) ((1.8) *((pulses/Math.PI)/diamter));
         leftPos = 0;
         rightPos =0;
         
@@ -64,9 +64,11 @@ public class BlueAutonomous extends LinearOpMode {
             goForward(14);
             turnRight(90);
             goForward(20);
-            turnRight(60);
+            turnRight(53);
             goForward(13);
             duckMotor.setPower(.3);
+            drive(d,d,0.2);
+            
             sleep(2400);
             goForward(-18);
             turnRight(113);
