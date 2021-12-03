@@ -57,11 +57,11 @@ public class FarRedAutonomous extends LinearOpMode {
             turnLeft(90);
             goForward(68);
             turnLeft(75);
-            goForward(13);
+            goForward(10);
             duckMotor.setPower(.7);
             sleep(2400);
-            goForward(-18);
-            turnLeft(108);
+            goForward(-10);
+            turnLeft(100);
             goForward(105);
             
             /* If you dont write comments you are not a programmer -Mr.Lamphere
