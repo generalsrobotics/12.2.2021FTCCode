@@ -44,7 +44,6 @@ public class FarBlueAutonomous extends LinearOpMode {
         
         leftPos = 0;
         rightPos =0;
-        
         waitForStart();
         //drive(537,537,0.50);
         
@@ -62,11 +61,11 @@ public class FarBlueAutonomous extends LinearOpMode {
             
         // Robot 1 Sequence
             pause(1000);
-            goForward(14);
-            turnRight(90);
-            goForward(68);
-            turnRight(60);
             goForward(13);
+            turnRight(90);
+            goForward(65);
+            turnRight(60);
+            goForward(10);
             duckMotor.setPower(.5);
             sleep(2400);
             goForward(-18);
