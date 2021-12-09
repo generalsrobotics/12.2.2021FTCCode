@@ -31,6 +31,8 @@ public class BlueAutonomous extends LinearOpMode {
         
         duckMotor = hardwareMap.get(DcMotor.class, "m3");
         
+        //armMotor = hardwareMap.get(DcMotor.class, "m1");
+        
         frontright.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         backright.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         frontleft.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
@@ -41,7 +43,7 @@ public class BlueAutonomous extends LinearOpMode {
         frontright.setDirection(DcMotor.Direction.REVERSE);
         backright.setDirection(DcMotor.Direction.REVERSE);
         duckMotor.setDirection(DcMotor.Direction.REVERSE);   
-        int d = (int) ((1.8) *((pulses/Math.PI)/diamter));
+        int d = (int) ((1.5) *((pulses/Math.PI)/diamter));
         leftPos = 0;
         rightPos =0;
         
@@ -65,15 +67,15 @@ public class BlueAutonomous extends LinearOpMode {
             turnRight(90);
             goForward(20);
             turnRight(53);
-            goForward(13);
-            duckMotor.setPower(.3);
-            drive(d,d,0.2);
+            goForward(12);
+            duckMotor.setPower(-0.25);
+            drive(d,d,.1);
             
-            sleep(2400);
-            goForward(-18);
-            turnRight(113);
+            sleep(6000);
+            goForward(-28);
+            turnRight(112);
             goForward(105);
-            
+            //extendArm(0.3);
         
     
         
@@ -132,6 +134,8 @@ public class BlueAutonomous extends LinearOpMode {
     private void drive(int leftTarget, int rightTarget, double speed){
         leftPos += leftTarget;
         rightPos+= rightTarget;
+        
+      
         
         //setting distance target 
         backright.setTargetPosition(rightPos);
