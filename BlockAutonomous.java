@@ -14,6 +14,7 @@ public class BlockAutonomous extends LinearOpMode {
     private DcMotor backright = null;
     private DcMotor frontleft = null;
     private DcMotor backleft = null;
+    private DcMotor IntakeMotor =null;
     // todo: write your code here
     private int leftPos; 
     private int rightPos;
@@ -27,6 +28,7 @@ public class BlockAutonomous extends LinearOpMode {
     private int armPulses = 5281;
     private int bigSprocket = 42;
     private int smallSprocket = 8;
+    
 
     
     @Override
@@ -41,6 +43,7 @@ public class BlockAutonomous extends LinearOpMode {
         armMotor = hardwareMap.get(DcMotor.class, "m0");
         
         extenderMotor = hardwareMap.get(DcMotor.class, "m1");
+        IntakeMotor = hardwareMap.get(DcMotor.class, "IntakeMotor");
         
         frontright.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         backright.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
@@ -52,7 +55,8 @@ public class BlockAutonomous extends LinearOpMode {
         backleft.setDirection(DcMotor.Direction.FORWARD);
         frontright.setDirection(DcMotor.Direction.REVERSE);
         backright.setDirection(DcMotor.Direction.REVERSE);
-        duckMotor.setDirection(DcMotor.Direction.REVERSE);   
+        duckMotor.setDirection(DcMotor.Direction.REVERSE); 
+        int d = (int) ((100-3) *((pulses/Math.PI)/diamter));
         
         leftPos = 0;
         rightPos =0;
@@ -60,7 +64,30 @@ public class BlockAutonomous extends LinearOpMode {
         waitForStart();
         //level1();
         //level2();
+        
+        goForward(12);
+        turnLeft(90);
+        goForward(24);
+        turnLeft(90);
+        goForward(9.4);
+        duckMotor.setPower(.4);
+        sleep(3000);
+        goForward(-12);
+        turnLeft(105);
+        goForward(27);
+        turnRight(19);
         level3();
+        
+        goForward(-20);
+        turnRight(55);
+        drive(d,d,.50);
+        
+        
+        
+
+        
+        
+        
         
          /* Start the robot in the second cube near the carousel,
          spin the carousel, go to the shipping hup in an diagonal way,
@@ -84,14 +111,13 @@ public class BlockAutonomous extends LinearOpMode {
        while (getRuntime()- t > milliseconds);
       
     }
-    
     private void goForward (double distance) {
         
             //This will tell to the driver hub whats the robot is doing.
         telemetry.addData("goForward",distance);
         telemetry.update();
      int d = (int) ((distance-3) *((pulses/Math.PI)/diamter));
-     drive(d,d,0.50);
+     drive(d,d,0.30);
     }
     
     
@@ -169,32 +195,28 @@ public class BlockAutonomous extends LinearOpMode {
             
     } 
     private void level1(){
-      //extendArm(0.3);
-      moveArm(15);
-      
-      //moveArm(-0.5);
-      //placeDuck
+      moveArm(33);
+      extendArm(1);
+      moveIntake(3);
       
         
         
     }
     
     private void level2(){
-      //extendArm(0.3);
-      moveArm(35);
-      //moveArm(-0.5);
-      //placeDuck
+        moveArm(68);
+        extendArm(1);
+        moveIntake(3);
       
         
         
     }
     
     private void level3(){
-      //moveArm(55);
-      //moveArm(90);
-      extendArm(4);
+      moveArm(90);
+      extendArm(5);
       //moveArm(-0.5);
-      //placeDuck
+      moveIntake(3);
       
     }
     private void extendArm(double distance){
@@ -207,7 +229,7 @@ public class BlockAutonomous extends LinearOpMode {
         telemetry.update();
         
         extenderMotor.setTargetPosition(currentPos+d);
-        extenderMotor.setPower(-.7); // THis is negative to reverse the direction
+        extenderMotor.setPower(-1); // THis is negative to reverse the direction
         extenderMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         //setting speed
         
@@ -249,14 +271,24 @@ public class BlockAutonomous extends LinearOpMode {
 
         armMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         //setting speed
-        armMotor.setPower(.9);
+        armMotor.setPower(1);
         
         while(opModeIsActive()&& armMotor.isBusy()){
             idle(); }
+            
+            
+        
 
         
     }
     
-    
+    private void moveIntake (int seconds)
+        {
+          
+           IntakeMotor.setPower(0.7);
+           sleep((1000 * seconds));
+           IntakeMotor.setPower(0);
+          
+        }
  
 }
